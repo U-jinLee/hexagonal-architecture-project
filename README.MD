@@ -1,4 +1,4 @@
-# Spring Boot 3.0 Skeleton Project
+# Hexagonal Architecture Project
 
 <br/>
 

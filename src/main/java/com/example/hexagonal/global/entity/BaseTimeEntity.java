@@ -1,4 +1,4 @@
-package com.example.skeleton.global.entity;
+package com.example.hexagonal.global.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

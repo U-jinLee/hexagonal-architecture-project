@@ -1,6 +1,6 @@
-package com.example.skeleton.global.error;
+package com.example.hexagonal.global.error;
 
-import com.example.skeleton.global.error.exception.ErrorCode;
+import com.example.hexagonal.global.error.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

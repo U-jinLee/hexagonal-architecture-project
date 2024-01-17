@@ -1,7 +1,7 @@
-package com.example.skeleton.global.error;
+package com.example.hexagonal.global.error;
 
-import com.example.skeleton.global.error.exception.BusinessException;
-import com.example.skeleton.global.error.exception.ErrorCode;
+import com.example.hexagonal.global.error.exception.BusinessException;
+import com.example.hexagonal.global.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

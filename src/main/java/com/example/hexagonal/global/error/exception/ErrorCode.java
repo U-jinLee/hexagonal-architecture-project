@@ -1,4 +1,4 @@
-package com.example.skeleton.global.error.exception;
+package com.example.hexagonal.global.error.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
