@@ -1,5 +1,16 @@
 package com.example.hexagonal.account.domain;
 
+import lombok.Value;
+
 public class Account {
-    //todo
+
+	private AccountId id;
+	private Money money;
+	private ActivityWindow activityWindow;
+
+	@Value
+	public static class AccountId {
+		public Long id;
+	}
+
 }
