@@ -1,4 +1,4 @@
-package com.example.hexagonal.account.adapter.in;
+package com.example.hexagonal.account.adapter.in.web;
 
 import com.example.hexagonal.account.application.port.in.SendMoneyCommand;
 import com.example.hexagonal.account.application.port.in.SendMoneyUseCase;
