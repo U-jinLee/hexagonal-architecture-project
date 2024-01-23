@@ -2,14 +2,16 @@ package com.example.hexagonal.account.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Value;
 
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Account {
 
-	private AccountId id;
-	private Money money;
-	private ActivityWindow activityWindow;
+	private final AccountId id;
+	private final Money money;
+	private final ActivityWindow activityWindow;
 
 	public static Account withId(AccountId accountId,
 		Money baselineBalance,

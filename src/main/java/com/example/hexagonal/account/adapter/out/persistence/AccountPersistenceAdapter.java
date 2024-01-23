@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.hexagonal.account.application.port.out.LoadAccountPort;
+import com.example.hexagonal.account.application.port.out.UpdateAccountStatePort;
 import com.example.hexagonal.account.domain.Account;
+import com.example.hexagonal.account.domain.Activity;
 import com.example.hexagonal.common.PersistenceAdapter;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -14,40 +16,50 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class AccountPersistenceAdapter implements LoadAccountPort {
+public class AccountPersistenceAdapter implements
+        LoadAccountPort,
+        UpdateAccountStatePort {
 
-	private final SpringDataAccountRepository accountRepository;
-	private final ActivityRepository activityRepository;
-	private final AccountMapper accountMapper;
+    private final SpringDataAccountRepository accountRepository;
+    private final ActivityRepository activityRepository;
+    private final AccountMapper accountMapper;
 
-	@Override
-	public Account loadAccount(AccountId accountId,
-		LocalDateTime baselineDate) {
+    @Override
+    public Account loadAccount(AccountId accountId,
+                               LocalDateTime baselineDate) {
 
-		AccountJpaEntity account = accountRepository.findById(accountId.getValue())
-			.orElseThrow(EntityNotFoundException::new);
+        AccountJpaEntity account = accountRepository.findById(accountId.getValue())
+                .orElseThrow(EntityNotFoundException::new);
 
-		List<ActivityJpaEntity> activities =
-			activityRepository.findByOwnerSince(accountId.getValue(), baselineDate);
+        List<ActivityJpaEntity> activities =
+                activityRepository.findByOwnerSince(accountId.getValue(), baselineDate);
 
-		Long withdrawalBalance = orZero(activityRepository.getWithdrawalBalanceUntil(
-			accountId.getValue(),
-			baselineDate
-		));
+        Long withdrawalBalance = orZero(activityRepository.getWithdrawalBalanceUntil(
+                accountId.getValue(),
+                baselineDate
+        ));
 
-		Long depositBalance = orZero(activityRepository.getDepositBalanceUntil(
-			accountId.getValue(),
-			baselineDate
-		));
+        Long depositBalance = orZero(activityRepository.getDepositBalanceUntil(
+                accountId.getValue(),
+                baselineDate
+        ));
 
-		return accountMapper.mapToDomainEntity(account,
-			activities,
-			withdrawalBalance,
-			depositBalance);
-	}
+        return accountMapper.mapToDomainEntity(account,
+                activities,
+                withdrawalBalance,
+                depositBalance);
+    }
 
-	private Long orZero(Long value) {
-		return value == null ? 0L : value;
-	}
+    private Long orZero(Long value) {
+        return value == null ? 0L : value;
+    }
+
+    @Override
+    public void updateActivities(Account account) {
+
+        for (Activity activity : account.getActivityWindow().getActivities())
+            if (activity.getId() == null) activityRepository.save(accountMapper.mapToJpaEntity(activity));
+
+    }
 
 }
