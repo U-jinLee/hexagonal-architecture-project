@@ -1,1 +1,2 @@
-
+hexagonal:
+  transferThreshold: 10000
