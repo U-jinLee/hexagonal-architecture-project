@@ -1,4 +1,4 @@
-package com.example.hexagonal.account.application.service;
+package com.example.hexagonal.account.adapter.out.persistence;
 
 import com.example.hexagonal.account.application.port.out.AccountLock;
 import com.example.hexagonal.account.domain.Account;
